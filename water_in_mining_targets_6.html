@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Water in Mining 2026 — Target Contacts</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1f35;
+    --teal: #0e7c6b;
+    --teal-light: #e8f5f2;
+    --gold: #c8993a;
+    --gold-light: #fdf5e6;
+    --slate: #4a5568;
+    --border: #e2e8f0;
+    --white: #ffffff;
+    --bg: #f7f9fc;
+    --text: #1a202c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; }
+  .page-header { background: var(--navy); color: white; padding: 2rem 1.25rem 1.5rem; position: sticky; top: 0; z-index: 100; }
+  .page-header .event-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.55; margin-bottom: 4px; }
+  .page-header h1 { font-family: 'DM Serif Display', serif; font-size: 22px; line-height: 1.2; margin-bottom: 4px; }
+  .page-header .meta { font-size: 12px; opacity: 0.6; }
+  .search-bar { padding: 0.75rem 1.25rem; background: white; border-bottom: 1px solid var(--border); position: sticky; top: 86px; z-index: 99; }
+  .search-bar input { width: 100%; padding: 8px 14px; border: 1px solid var(--border); border-radius: 20px; font-family: 'DM Sans', sans-serif; font-size: 14px; background: var(--bg); outline: none; color: var(--text); }
+  .search-bar input:focus { border-color: var(--teal); }
+  .count-bar { padding: 0.5rem 1.25rem; font-size: 12px; color: var(--slate); background: white; border-bottom: 1px solid var(--border); }
+  .company-section { margin: 1.25rem 1rem 0; border-radius: 14px; overflow: hidden; background: white; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .company-header { padding: 1rem 1.25rem; background: var(--navy); cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .company-header:hover { background: #162d48; }
+  .company-name { font-family: 'DM Serif Display', serif; font-size: 18px; color: white; flex: 1; }
+  .company-count { background: var(--teal); color: white; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+  .chevron { color: rgba(255,255,255,0.5); font-size: 18px; transition: transform 0.2s; flex-shrink: 0; }
+  .company-section.open .chevron { transform: rotate(180deg); }
+  .company-body { display: none; }
+  .company-section.open .company-body { display: block; }
+  .company-info { padding: 1rem 1.25rem; background: #fafbfd; border-bottom: 1px solid var(--border); }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .info-item { background: white; border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; }
+  .info-item.full { grid-column: 1 / -1; }
+  .info-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--slate); margin-bottom: 2px; }
+  .info-value { font-size: 13px; font-weight: 500; color: var(--text); }
+  .info-value.highlight { color: var(--teal); }
+  .sust-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 4px; }
+  .sust-tag { background: var(--teal-light); color: var(--teal); font-size: 11px; padding: 2px 8px; border-radius: 12px; font-weight: 500; }
+  .about-text { font-size: 13px; color: var(--slate); line-height: 1.6; }
+  .contact-card { padding: 1rem 1.25rem; border-top: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; cursor: pointer; transition: background 0.15s; }
+  .contact-card:hover { background: #f0f9f7; }
+  .avatar-wrap { position: relative; flex-shrink: 0; }
+  .avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: font-weight: 600; font-size: 13px; color: white; overflow: hidden; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .avatar-initials { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 13px; color: white; flex-shrink: 0; }
+  .has-photo::after { content: ""; position: absolute; bottom: 0; right: 0; width: 12px; height: 12px; background: var(--teal); border-radius: 50%; border: 2px solid white; }
+  .contact-info { flex: 1; min-width: 0; }
+  .contact-name { font-weight: 600; font-size: 15px; color: var(--text); }
+  .contact-role { font-size: 12px; color: var(--slate); margin-top: 2px; line-height: 1.4; }
+  .contact-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .badge { font-size: 10px; padding: 2px 7px; border-radius: 12px; font-weight: 500; }
+  .badge-speaker { background: var(--gold-light); color: var(--gold); }
+  .badge-confirmed { background: #e8f5e9; color: #2e7d32; }
+  .badge-maybe { background: #fff8e1; color: #f57f17; }
+  .contact-notes { font-size: 12px; color: var(--slate); margin-top: 5px; font-style: italic; background: var(--bg); border-radius: 6px; padding: 5px 8px; }
+  .tap-hint { font-size: 11px; color: var(--teal); margin-top: 4px; opacity: 0.7; }
+  .spacer { height: 2rem; }
+  .av-0 { background: #0e7c6b; }
+  .av-1 { background: #2563eb; }
+  .av-2 { background: #7c3aed; }
+  .av-3 { background: #c2410c; }
+  .av-4 { background: #0369a1; }
+  .av-5 { background: #15803d; }
+  .av-6 { background: #9d174d; }
+  .av-7 { background: #1e40af; }
+  .company-section.hidden { display: none; }
+
+  /* LIGHTBOX */
+  #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
+  #lightbox.active { display: flex; }
+  #lightbox-img { max-width: 100%; max-height: 65vh; border-radius: 12px; object-fit: contain; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
+  #lightbox-name { color: white; font-family: 'DM Serif Display', serif; font-size: 22px; margin-top: 1rem; text-align: center; }
+  #lightbox-company { color: rgba(255,255,255,0.6); font-size: 14px; margin-top: 4px; text-align: center; }
+  #lightbox-close { position: absolute; top: 1rem; right: 1.25rem; background: rgba(255,255,255,0.15); border: none; color: white; font-size: 22px; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  #lightbox-close:hover { background: rgba(255,255,255,0.25); }
+
+  @media (min-width: 600px) {
+    .info-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .company-section { margin: 1.5rem 1.5rem 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox(event)">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-name"></div>
+  <div id="lightbox-company"></div>
+</div>
+
+<div class="page-header">
+  <p class="event-label">Vancouver · April 2026</p>
+  <h1>Water in Mining — Target Contacts</h1>
+  <p class="meta">51 targets · 14 companies · Tap a contact to see their photo</p>
+</div>
+
+<div class="search-bar">
+  <input type="text" id="searchInput" placeholder="Search by name, company or role..." oninput="filterCards()">
+</div>
+
+<div class="count-bar" id="countBar">Showing all 51 contacts</div>
+
+<div id="companiesContainer">
+<div class="company-section open" data-company="BHP">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">BHP</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">World's largest diversified mining company. Iron ore, copper, nickel and potash. Operations in Australia, Chile and Canada.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$55.6B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~91,000 (incl. contractors)</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~20 major assets</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Water stewardship strategy (15+ yrs)</span><span class="sust-tag">CEO Water Mandate signatory</span><span class="sust-tag">Context-based water targets</span><span class="sust-tag">Nature-positive by 2030</span><span class="sust-tag">Net-zero by 2050</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Internal water standards, Aqueduct, satellite monitoring</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$50,000+ — Corporate Water Risk across Escondida, Pampa Norte, Antamina</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="blair douglas bhp global practice lead for water management and mine closure " onclick="openPhoto('Blair Douglas', 'BHP')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Blair Douglas', 'BHP')">
+  <div class="avatar"><img src="" data-name="Blair Douglas" alt="Blair Douglas" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Blair Douglas</div>
+          <div class="contact-role">Global Practice Lead for Water Management and Mine Closure</div>
+          <div class="contact-badges"><span class="badge badge-speaker">🎤 Speaker</span><span class="badge badge-confirmed">✓ Confirmed</span></div>
+          <div class="contact-notes">Pipe Gen — KEY. Ya le mande confirmacion por linkedin pidiendo el telefono.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Newmont">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Newmont</span>
+    <span class="company-count">2 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">World's largest gold producer. Acquired Newcrest in 2023. Operations across North America, South America, Australia and Africa.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$18.7B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~17,500</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~17 operating mines</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">20% water use reduction target</span><span class="sust-tag">80%+ water recycling</span><span class="sust-tag">Global Water Strategy</span><span class="sust-tag">Net-zero by 2050</span><span class="sust-tag">TNFD early adopter</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">CDP Water Security, real-time sensors, $800M reclamation 2025</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$50,000–$100,000 — Risk + In-depth across Peñasquito, Yanacocha, Cerro Negro</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="kristin pouw newmont principal, water & waste " onclick="openPhoto('Kristin Pouw', 'Newmont')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Kristin Pouw', 'Newmont')">
+  <div class="avatar"><img src="" data-name="Kristin Pouw" alt="Kristin Pouw" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Kristin Pouw</div>
+          <div class="contact-role">Principal, Water & Waste</div>
+          <div class="contact-badges"><span class="badge badge-maybe">⏳ Pending</span></div>
+          <div class="contact-notes">Le hice fup por mail pero estaba out of office.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="nathan glas newmont specialist, water, americas " onclick="openPhoto('Nathan Glas', 'Newmont')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Nathan Glas', 'Newmont')">
+  <div class="avatar"><img src="" data-name="Nathan Glas" alt="Nathan Glas" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Nathan Glas</div>
+          <div class="contact-role">Specialist, Water, Americas</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Rio Tinto">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Rio Tinto</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Global mining & metals company. Iron ore, aluminium, copper, lithium. Operations in 35 countries.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$26.8B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~57,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~50+ operations</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">50% GHG reduction by 2030</span><span class="sust-tag">Net-zero by 2050</span><span class="sust-tag">Water management plans per site</span><span class="sust-tag">Nature-positive ambition</span><span class="sust-tag">TCFD reporter</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Site-level water plans, internal Safe Production System</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$50,000+ — Pilbara, Oyu Tolgoi, Escondida partnership</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="sean sinclair rio tinto closure manager " onclick="openPhoto('Sean Sinclair', 'Rio Tinto')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Sean Sinclair', 'Rio Tinto')">
+  <div class="avatar"><img src="" data-name="Sean Sinclair" alt="Sean Sinclair" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Sean Sinclair</div>
+          <div class="contact-role">Closure Manager</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Barrick Mining">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Barrick Mining</span>
+    <span class="company-count">2 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">World's second-largest gold producer. Also copper. Operations in 18 countries across Americas, Africa and Asia Pacific.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$12.4B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~26,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~17 operating mines</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk + Closure</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">ISO 14001 all mines</span><span class="sust-tag">CDP Water Security reporter</span><span class="sust-tag">$65M water treatment at legacy sites 2024</span><span class="sust-tag">Net-zero by 2050</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Environmental Policy, TCFD, active closure programs at Nevada, NM, BC</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$50,000+ — Water risk + closure (NGM, Pueblo Viejo, Loulo, Kibali)</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="allison brown barrick mining director, reclamation and closure " onclick="openPhoto('Allison Brown', 'Barrick Mining')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Allison Brown', 'Barrick Mining')">
+  <div class="avatar"><img src="" data-name="Allison Brown" alt="Allison Brown" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Allison Brown</div>
+          <div class="contact-role">Director, Reclamation and Closure</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="kerri harmati barrick mining sr. closure manager " onclick="openPhoto('Kerri Harmati', 'Barrick Mining')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Kerri Harmati', 'Barrick Mining')">
+  <div class="avatar"><img src="" data-name="Kerri Harmati" alt="Kerri Harmati" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Kerri Harmati</div>
+          <div class="contact-role">Sr. Closure Manager</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Glencore">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Glencore</span>
+    <span class="company-count">2 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">World's largest commodity trading & mining company. Metals + energy (coal). Acquired Teck's coal business (EVR) in July 2024.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$217B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~135,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~60+ industrial assets</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">GISTM tailings compliance</span><span class="sust-tag">Water risk assessment per site</span><span class="sust-tag">50% GHG reduction by 2035</span><span class="sust-tag">Net-zero by 2050</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Internal water plans, TCFD, CDP Water, ICMM member</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$75,000+ — High complexity portfolio; tailings & water combined license</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="clement agboma glencore senior leader — water & tailings management | environmental compliance ">
+        <div class="avatar-initials av-0">CA</div>
+        <div class="contact-info">
+          <div class="contact-name">Clement Agboma</div>
+          <div class="contact-role">Senior Leader — Water & Tailings Management | Environmental Compliance</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          
+        </div>
+      </div><div class="contact-card" data-search="elzanne moodie glencore head of environment and climate " onclick="openPhoto('Elzanne Moodie', 'Glencore')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Elzanne Moodie', 'Glencore')">
+  <div class="avatar"><img src="" data-name="Elzanne Moodie" alt="Elzanne Moodie" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Elzanne Moodie</div>
+          <div class="contact-role">Head of Environment and Climate</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Vale / Vale Base Metals">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Vale / Vale Base Metals</span>
+    <span class="company-count">8 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Brazilian mining giant. World's largest iron ore & nickel producer. Vale Base Metals is its standalone copper/nickel/cobalt unit. Critical ESG focus after Brumadinho.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$40B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~110,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~40+ operated globally</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk + Closure</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">GISTM compliance</span><span class="sust-tag">Water positive by 2030</span><span class="sust-tag">Reduce freshwater withdrawal intensity</span><span class="sust-tag">Net-zero by 2050</span><span class="sust-tag">Reparations program Mariana/Brumadinho</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Internal water & dam safety systems, CDP reporter, post-Brumadinho governance</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$100,000+ — High-value license. Vale Base Metals AND Vale S.A. could be separate contracts</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="randal evans vale base metals senior specialist hydrogeologist — integrated water management " onclick="openPhoto('Randal Evans', 'Vale Base Metals')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Randal Evans', 'Vale Base Metals')">
+  <div class="avatar"><img src="" data-name="Randal Evans" alt="Randal Evans" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Randal Evans</div>
+          <div class="contact-role">Senior Specialist Hydrogeologist — Integrated Water Management</div>
+          <div class="contact-badges"><span class="badge badge-maybe">⏳ Pending</span></div>
+          <div class="contact-notes">Whatsapp enviado: +1.249.885.4487, pero en la call puso maybe.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="henrique guerzoni vale base metals principal hydrogeologist " onclick="openPhoto('Henrique Guerzoni', 'Vale Base Metals')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Henrique Guerzoni', 'Vale Base Metals')">
+  <div class="avatar"><img src="" data-name="Henrique Guerzoni" alt="Henrique Guerzoni" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Henrique Guerzoni</div>
+          <div class="contact-role">Principal Hydrogeologist</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="allison merla vale base metals specialist, environment " onclick="openPhoto('Allison Merla', 'Vale Base Metals')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Allison Merla', 'Vale Base Metals')">
+  <div class="avatar"><img src="" data-name="Allison Merla" alt="Allison Merla" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Allison Merla</div>
+          <div class="contact-role">Specialist, Environment</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="jose wanderley vale base metals corporate dam's geotechnical manager " onclick="openPhoto('Jose Wanderley', 'Vale Base Metals')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Jose Wanderley', 'Vale Base Metals')">
+  <div class="avatar"><img src="" data-name="Jose Wanderley" alt="Jose Wanderley" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Jose Wanderley</div>
+          <div class="contact-role">Corporate Dam's Geotechnical Manager</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="alexandre braga vale water resources engineer " onclick="openPhoto('Alexandre Braga', 'Vale')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Alexandre Braga', 'Vale')">
+  <div class="avatar"><img src="" data-name="Alexandre Braga" alt="Alexandre Braga" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Alexandre Braga</div>
+          <div class="contact-role">Water Resources Engineer</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="gustavo correa vale water resources engineer " onclick="openPhoto('Gustavo Correa', 'Vale')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Gustavo Correa', 'Vale')">
+  <div class="avatar"><img src="" data-name="Gustavo Correa" alt="Gustavo Correa" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Gustavo Correa</div>
+          <div class="contact-role">Water Resources Engineer</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="willyan debastiani vale water resources manager " onclick="openPhoto('Willyan Debastiani', 'Vale')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Willyan Debastiani', 'Vale')">
+  <div class="avatar"><img src="" data-name="Willyan Debastiani" alt="Willyan Debastiani" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Willyan Debastiani</div>
+          <div class="contact-role">Water Resources Manager</div>
+          <div class="contact-badges"><span class="badge badge-maybe">⏳ Pending</span></div>
+          <div class="contact-notes">Le hice fup por mail y linkedin pero aun no contestó.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="shelley willock vale superintendent projects ">
+        <div class="avatar-initials av-5">SW</div>
+        <div class="contact-info">
+          <div class="contact-name">Shelley Willock</div>
+          <div class="contact-role">Superintendent Projects</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Freeport-McMoRan">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Freeport-McMoRan</span>
+    <span class="company-count">3 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">World's largest publicly traded copper producer. Grasberg (Indonesia), Morenci (USA), Cerro Verde (Peru). Also gold and molybdenum.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$22.8B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~48,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~12 major mines</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Water Strategy — Director role dedicated</span><span class="sust-tag">Reduce freshwater intensity 30% by 2030</span><span class="sust-tag">CDP Water reporter</span><span class="sust-tag">Net-zero aspiration</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Dedicated VP Land & Water + Director of Water Strategy. Aqueduct, site plans</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$75,000+ — Grasberg, Morenci, Cerro Verde; strong internal water expertise</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="francis mcallister freeport mcmoran vice president of land and water " onclick="openPhoto('Francis McAllister', 'Freeport McMoRan')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Francis McAllister', 'Freeport McMoRan')">
+  <div class="avatar"><img src="" data-name="Francis McAllister" alt="Francis McAllister" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Francis McAllister</div>
+          <div class="contact-role">Vice President of Land and Water</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Confirmed</span></div>
+          <div class="contact-notes">Este tipo hay que buscarlo en la charla — ya reservé el horario en el calendar.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="sandy fabritz freeport-mcmoran director of water strategy " onclick="openPhoto('Sandy Fabritz', 'Freeport-McMoRan')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Sandy Fabritz', 'Freeport-McMoRan')">
+  <div class="avatar"><img src="" data-name="Sandy Fabritz" alt="Sandy Fabritz" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Sandy Fabritz</div>
+          <div class="contact-role">Director of Water Strategy</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="alex ungers freeport environmental chief " onclick="openPhoto('Alex Ungers', 'Freeport')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Alex Ungers', 'Freeport')">
+  <div class="avatar"><img src="" data-name="Alex Ungers" alt="Alex Ungers" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Alex Ungers</div>
+          <div class="contact-role">Environmental Chief</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Teck Resources">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Teck Resources</span>
+    <span class="company-count">3 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Major Canadian diversified miner. Post-coal sale focused on copper (QB2, Highland Valley) + zinc (Red Dog, Trail).</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$8.4B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~10,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~8 major operations</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Elk Valley Water Quality Plan (77.5M L/day)</span><span class="sust-tag">100% renewable power at QB2</span><span class="sust-tag">Desalinated seawater at QB2 (first large-scale in Tarapacá)</span><span class="sust-tag">Nature-positive goal since 2022</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Dedicated water pillar in sustainability strategy, CDP reporter</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$50,000 — QB2, Highland Valley, Carmen de Andacollo (drought risk documented)</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="varun gupta teck resources lead water resources " onclick="openPhoto('Varun Gupta', 'Teck Resources')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Varun Gupta', 'Teck Resources')">
+  <div class="avatar"><img src="" data-name="Varun Gupta" alt="Varun Gupta" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Varun Gupta</div>
+          <div class="contact-role">Lead Water Resources</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="victoria sterritt teck resources director, legacy properties " onclick="openPhoto('Victoria Sterritt', 'Teck Resources')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Victoria Sterritt', 'Teck Resources')">
+  <div class="avatar"><img src="" data-name="Victoria Sterritt" alt="Victoria Sterritt" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Victoria Sterritt</div>
+          <div class="contact-role">Director, Legacy Properties</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="ally wade teck resources senior lead, water ">
+        <div class="avatar-initials av-7">AW</div>
+        <div class="contact-info">
+          <div class="contact-name">Ally Wade</div>
+          <div class="contact-role">Senior Lead, Water</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Agnico Eagle">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Agnico Eagle</span>
+    <span class="company-count">4 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Canada's largest gold miner. Assets in Ontario, Quebec, Nunavut, Mexico, Finland and Australia. Record revenue in 2025.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$11.9B USD (2025 record)</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~21,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~12 operating mines</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">TSM Water Stewardship Protocol</span><span class="sust-tag">Water stewardship ratings per mine</span><span class="sust-tag">Climate Action Report 2023</span><span class="sust-tag">Net-zero by 2050</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">TSM reporting, MAC member, Reconciliation Action Plan, CDP reporter</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$50,000+ — Canadian Malartic, Detour Lake, Meliadine; Odyssey expansion permitting</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="bobby doroudiani agnico eagle permitting lead — water & waste " onclick="openPhoto('Bobby Doroudiani', 'Agnico Eagle')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Bobby Doroudiani', 'Agnico Eagle')">
+  <div class="avatar"><img src="" data-name="Bobby Doroudiani" alt="Bobby Doroudiani" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Bobby Doroudiani</div>
+          <div class="contact-role">Permitting Lead — Water & Waste</div>
+          <div class="contact-badges"><span class="badge badge-maybe">⏳ Pending</span></div>
+          <div class="contact-notes">Me aceptó en linkedin pero aun no me contestó.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="kenzie hackett agnico eagle environmental superintendent " onclick="openPhoto('Kenzie Hackett', 'Agnico Eagle')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Kenzie Hackett', 'Agnico Eagle')">
+  <div class="avatar"><img src="" data-name="Kenzie Hackett" alt="Kenzie Hackett" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Kenzie Hackett</div>
+          <div class="contact-role">Environmental Superintendent</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="lisa mah agnico eagle permitting specialist " onclick="openPhoto('Lisa Mah', 'Agnico Eagle')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Lisa Mah', 'Agnico Eagle')">
+  <div class="avatar"><img src="" data-name="Lisa Mah" alt="Lisa Mah" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Lisa Mah</div>
+          <div class="contact-role">Permitting Specialist</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="carlos vasquez agnico eagle general supervisor ">
+        <div class="avatar-initials av-1">CV</div>
+        <div class="contact-info">
+          <div class="contact-name">Carlos Vasquez</div>
+          <div class="contact-role">General Supervisor</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Pan American Silver">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Pan American Silver</span>
+    <span class="company-count">6 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">World's second-largest primary silver producer. 12+ mines in Mexico, Peru, Bolivia, Argentina, Chile, Brazil, Canada. Record gold production in 2024.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$2.8B USD (record)</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~15,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">12+ operating mines</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">GISTM tailings compliance</span><span class="sust-tag">Water withdrawal reduction targets</span><span class="sust-tag">CDP Water reporter</span><span class="sust-tag">GHG reduction roadmap to 2030</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Internal water management plans per country, Environment Managers per region</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$50,000–$75,000 — Large multi-country water-stressed portfolio</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="jae min pan american silver manager, environment " onclick="openPhoto('Jae Min', 'Pan American Silver')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Jae Min', 'Pan American Silver')">
+  <div class="avatar"><img src="" data-name="Jae Min" alt="Jae Min" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Jae Min</div>
+          <div class="contact-role">Manager, Environment</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Confirmed</span></div>
+          <div class="contact-notes">Seteamos meet y le mande whatsapp.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="fernanda barrios pan american silver manager, environment ">
+        <div class="avatar-initials av-2">FB</div>
+        <div class="contact-info">
+          <div class="contact-name">Fernanda Barrios</div>
+          <div class="contact-role">Manager, Environment</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          
+        </div>
+      </div><div class="contact-card" data-search="miguel berganza pan american silver gerente de asuntos ambientales y relaciones comunitarias " onclick="openPhoto('Miguel Berganza', 'Pan American Silver')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Miguel Berganza', 'Pan American Silver')">
+  <div class="avatar"><img src="" data-name="Miguel Berganza" alt="Miguel Berganza" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Miguel Berganza</div>
+          <div class="contact-role">Gerente de Asuntos Ambientales y Relaciones Comunitarias</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="melanie jenkins pan american silver environment manager " onclick="openPhoto('Melanie Jenkins', 'Pan American Silver')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Melanie Jenkins', 'Pan American Silver')">
+  <div class="avatar"><img src="" data-name="Melanie Jenkins" alt="Melanie Jenkins" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Melanie Jenkins</div>
+          <div class="contact-role">Environment Manager</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="guillermo lópez pan american silver superintendente de asuntos ambientales ">
+        <div class="avatar-initials av-2">GL</div>
+        <div class="contact-info">
+          <div class="contact-name">Guillermo López</div>
+          <div class="contact-role">Superintendente de Asuntos Ambientales</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          
+        </div>
+      </div><div class="contact-card" data-search="adam whitman pan american silver sr manager reclamation and water management " onclick="openPhoto('Adam Whitman', 'Pan American Silver')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Adam Whitman', 'Pan American Silver')">
+  <div class="avatar"><img src="" data-name="Adam Whitman" alt="Adam Whitman" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Adam Whitman</div>
+          <div class="contact-role">Sr Manager Reclamation and Water Management</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Hudbay Minerals">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Hudbay Minerals</span>
+    <span class="company-count">4 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Diversified Canadian miner focused on copper. Constancia (Peru), Copper Mountain (Canada), Lalor (Canada). Record revenue in 2024.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$2.0B USD (record)</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~5,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">4 operating mines</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Water Systems supervision role</span><span class="sust-tag">TSM compliance</span><span class="sust-tag">ESG focus Americas</span><span class="sust-tag">GISTM tailings</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Internal environmental systems, TSM reporting</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$35,000–$50,000 — Constancia (Peru, water-stressed), Copper Mountain</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="shirley neault hudbay minerals manager of environment and systems " onclick="openPhoto('Shirley Neault', 'Hudbay Minerals')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Shirley Neault', 'Hudbay Minerals')">
+  <div class="avatar"><img src="" data-name="Shirley Neault" alt="Shirley Neault" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Shirley Neault</div>
+          <div class="contact-role">Manager of Environment and Systems</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Confirmed</span></div>
+          <div class="contact-notes">Call confirmada y whatsapp enviado: +1 (416) 402-9124</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="trevor ross hudbay minerals geoengineering and tailings manager " onclick="openPhoto('Trevor Ross', 'Hudbay Minerals')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Trevor Ross', 'Hudbay Minerals')">
+  <div class="avatar"><img src="" data-name="Trevor Ross" alt="Trevor Ross" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Trevor Ross</div>
+          <div class="contact-role">GeoEngineering and Tailings Manager</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Confirmed</span></div>
+          <div class="contact-notes">Ya le mande confirmacion por linkedin pidiendo el telefono.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="sadeed hassan hudbay minerals acting director, sustainable development " onclick="openPhoto('Sadeed Hassan', 'Hudbay Minerals')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Sadeed Hassan', 'Hudbay Minerals')">
+  <div class="avatar"><img src="" data-name="Sadeed Hassan" alt="Sadeed Hassan" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Sadeed Hassan</div>
+          <div class="contact-role">Acting Director, Sustainable Development</div>
+          <div class="contact-badges"><span class="badge badge-maybe">⏳ Pending</span></div>
+          <div class="contact-notes">Me aceptó linkedin pero aun no me contestó.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="lina ramos hudbay minerals general supervisor water systems " onclick="openPhoto('Lina Ramos', 'Hudbay Minerals')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Lina Ramos', 'Hudbay Minerals')">
+  <div class="avatar"><img src="" data-name="Lina Ramos" alt="Lina Ramos" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Lina Ramos</div>
+          <div class="contact-role">General Supervisor Water Systems</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Gold Fields">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Gold Fields</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">South African senior gold producer. Operations in Australia, Ghana, South Africa, Chile, Peru. Strong ESG profile, ICMM member.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$4.5B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~15,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~9 operating mines</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk + Stewardship</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">30% water reduction target</span><span class="sust-tag">Water stewardship senior mgr role</span><span class="sust-tag">Net-zero by 2050</span><span class="sust-tag">ICMM member</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Site water plans, CDP, annual sustainability reporting</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$35,000–$50,000 — Salares Norte (Chile, arid), Tarkwa (Ghana), South Deep (SA)</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="nosimo macatsha gold fields senior manager environment and water stewardship " onclick="openPhoto('Nosimo Macatsha', 'Gold Fields')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Nosimo Macatsha', 'Gold Fields')">
+  <div class="avatar"><img src="" data-name="Nosimo Macatsha" alt="Nosimo Macatsha" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Nosimo Macatsha</div>
+          <div class="contact-role">Senior Manager Environment and Water Stewardship</div>
+          <div class="contact-badges"><span class="badge badge-maybe">⏳ Pending</span></div>
+          <div class="contact-notes">Fup hecho por linkedin y mail.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Orla Mining">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Orla Mining</span>
+    <span class="company-count">3 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Canadian gold mining company. Operates Camino Rojo (Mexico). Acquired Musselwhite mine (Ontario) from Newmont in 2024.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$300M+ USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~1,500</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">2 operating mines</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Zero water discharge (100% reuse) at Camino Rojo</span><span class="sust-tag">0.12 m³/t water intensity (world-class)</span><span class="sust-tag">Lowest emissions intensity in sector</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Zero-discharge operations, strong internal data tracking</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$25,000 — Good entry point; Musselwhite is new acquisition needing risk baseline</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="felix abanto trujillo orla musselwhite site water & closure lead – deputy rtfe " onclick="openPhoto('Felix Abanto Trujillo', 'Orla Musselwhite')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Felix Abanto Trujillo', 'Orla Musselwhite')">
+  <div class="avatar"><img src="" data-name="Felix Abanto Trujillo" alt="Felix Abanto Trujillo" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Felix Abanto Trujillo</div>
+          <div class="contact-role">Site Water & Closure Lead – Deputy RTFE</div>
+          <div class="contact-badges"><span class="badge badge-speaker">🎤 Speaker</span><span class="badge badge-confirmed">✓ Confirmed</span></div>
+          <div class="contact-notes">Ya le mande confirmacion por linkedin pidiendo el telefono.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="rory o'connor orla mining director, social performance " onclick="openPhoto('Rory O\'Connor', 'Orla Mining')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Rory O\'Connor', 'Orla Mining')">
+  <div class="avatar"><img src="" data-name="Rory O\'Connor" alt="Rory O\'Connor" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Rory O'Connor</div>
+          <div class="contact-role">Director, Social Performance</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="guillermo velasco martínez orla mining environment manager ">
+        <div class="avatar-initials av-4">GV</div>
+        <div class="contact-info">
+          <div class="contact-name">Guillermo Velasco Martínez</div>
+          <div class="contact-role">Environment Manager</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Lundin Gold & Lundin Mining">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Lundin Gold & Lundin Mining</span>
+    <span class="company-count">3 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Lundin Gold: Fruta del Norte (Ecuador). Lundin Mining: copper miner, sold Zinkgruvan & Neves Corvo to Boliden 2025. Joint acquisition of Filo del Sol with BHP.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$3.9B USD (Mining)</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~10,000+</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">6–8 operating mines</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Water management per site</span><span class="sust-tag">Manager Water role at Lundin Mining</span><span class="sust-tag">Net-zero ambition</span><span class="sust-tag">TSM/ICMM member</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Internal site water plans, CDP reporter</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$35,000 — Caserones (Chile, water-stressed), Josemaria/Filo project (Argentina)</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="maria cristina acosta lundin gold director, environment and permitting " onclick="openPhoto('Maria Cristina Acosta', 'Lundin Gold')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Maria Cristina Acosta', 'Lundin Gold')">
+  <div class="avatar"><img src="" data-name="Maria Cristina Acosta" alt="Maria Cristina Acosta" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Maria Cristina Acosta</div>
+          <div class="contact-role">Director, Environment and Permitting</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="verónica barbecho lundin gold superintendent, environment and permitting " onclick="openPhoto('Verónica Barbecho', 'Lundin Gold')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Verónica Barbecho', 'Lundin Gold')">
+  <div class="avatar"><img src="" data-name="Verónica Barbecho" alt="Verónica Barbecho" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Verónica Barbecho</div>
+          <div class="contact-role">Superintendent, Environment and Permitting</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div><div class="contact-card" data-search="camilo martinez lundin mining manager — water " onclick="openPhoto('Camilo Martinez', 'Lundin Mining')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Camilo Martinez', 'Lundin Mining')">
+  <div class="avatar"><img src="" data-name="Camilo Martinez" alt="Camilo Martinez" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Camilo Martinez</div>
+          <div class="contact-role">Manager — Water</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Boliden">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Boliden</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Swedish mining & metals company. Zinc, copper, lead, silver, gold. Acquiring Lundin's European assets (Zinkgruvan & Neves Corvo) in 2025.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$7.5B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~6,500</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">~7 mines + 5 smelters</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Water stewardship coordinator role (speaker)</span><span class="sust-tag">TCFD reporting</span><span class="sust-tag">Net-zero 2050</span><span class="sust-tag">Biodiversity targets</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Internal water management plans, CDP reporter</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$30,000–$50,000 — Aitik, Garpenberg; post-Lundin acquisition adds Portugal</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="ana rodrigues boliden boliden mines water stewardship coordinator " onclick="openPhoto('Ana Rodrigues', 'Boliden')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Ana Rodrigues', 'Boliden')">
+  <div class="avatar"><img src="" data-name="Ana Rodrigues" alt="Ana Rodrigues" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Ana Rodrigues</div>
+          <div class="contact-role">Boliden Mines Water Stewardship Coordinator</div>
+          <div class="contact-badges"><span class="badge badge-speaker">🎤 Speaker</span><span class="badge badge-confirmed">✓ Confirmed</span></div>
+          <div class="contact-notes">Ya le mande confirmacion por linkedin pidiendo el telefono.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Antofagasta Minerals">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Antofagasta Minerals</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Chilean copper mining group (FTSE 100). Los Pelambres, Centinela, Antucoya, Zaldívar. Atacama desert operations — extreme water scarcity context.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$6.2B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~3,700 direct</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">4 operating mines (Chile)</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk — HIGH priority</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Desalination at Los Pelambres & Centinela</span><span class="sust-tag">100% desalinated/recirculated water goal</span><span class="sust-tag">CDP Water A-list</span><span class="sust-tag">Net-zero by 2050</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Desalination tech, CDP Water, strong water leadership</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$50,000+ — Extreme water scarcity at Atacama; attending online = ideal digital account</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="andres alonso tovas antofagasta minerals role tbc ">
+        <div class="avatar-initials av-3">AA</div>
+        <div class="contact-info">
+          <div class="contact-name">Andres Alonso Tovas</div>
+          <div class="contact-role">Role TBC</div>
+          <div class="contact-badges"><span class="badge badge-maybe">🌐 Online</span></div>
+          <div class="contact-notes">Al final va a asistir online. Le pedí videollamada.</div>
+          
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Capstone Copper">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Capstone Copper</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Copper-focused miner. Mantoverde & Santo Domingo (Chile), Cozamin (Mexico), Pinto Valley (USA). Strong growth pipeline in water-stressed Chile.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$1.2B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~3,500</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">4 operations</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Desalination at Mantoverde</span><span class="sust-tag">Tailings & civil infrastructure focus</span><span class="sust-tag">CDP reporter</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Internal water management, desalination tech</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$25,000–$35,000 — Mantoverde (Chile, coastal desert), Pinto Valley (Arizona)</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="edwin ruiz capstone copper director, tailings & civil infrastructure ">
+        <div class="avatar-initials av-5">ER</div>
+        <div class="contact-info">
+          <div class="contact-name">Edwin Ruiz</div>
+          <div class="contact-role">Director, Tailings & Civil Infrastructure</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Coeur Mining">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Coeur Mining</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">US-based silver & gold producer. Rochester (Nevada), Palmarejo (Mexico), Kensington (Alaska), Silvertip (BC).</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$1.0B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~2,500</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">5 operations</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Water Strategy & Environmental Stewardship Manager role</span><span class="sust-tag">CDP Water reporter</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Internal water strategy function</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$25,000 — Rochester (Nevada, water-scarce), dedicated water strategy champion</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="emily o'hara coeur water strategy and environmental stewardship manager " onclick="openPhoto('Emily O\'Hara', 'Coeur')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Emily O\'Hara', 'Coeur')">
+  <div class="avatar"><img src="" data-name="Emily O\'Hara" alt="Emily O\'Hara" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Emily O'Hara</div>
+          <div class="contact-role">Water Strategy and Environmental Stewardship Manager</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="MMG">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">MMG</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Melbourne-based zinc & copper miner (majority China Minmetals). Las Bambas (Peru), Dugald River (Australia), Rosebery (Australia).</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">~$3.0B USD</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~10,000</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">4–5 operations</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Water stewardship at Las Bambas</span><span class="sust-tag">ICMM member</span><span class="sust-tag">CDP reporter</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Internal water plans, ICMM reporting</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$35,000 — Las Bambas (Peru, community water conflicts), Dugald River (QLD)</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="jorge zafra mmg principal hydrologist " onclick="openPhoto('Jorge Zafra', 'MMG')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Jorge Zafra', 'MMG')">
+  <div class="avatar"><img src="" data-name="Jorge Zafra" alt="Jorge Zafra" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Jorge Zafra</div>
+          <div class="contact-role">Principal Hydrologist</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Sindh Engro Coal Mining Company">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Sindh Engro Coal Mining Company</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Pakistani coal mining JV (Engro + Govt of Sindh). Operates Thar Coal Block II — one of the largest coal reserves in the world, in a water-stressed desert region.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">N/A (private)</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~2,000+</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">1 (Thar Block II)</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Corporate Water Risk</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Water management in Thar desert (critical)</span><span class="sust-tag">HSE & Sustainability focus</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Water management in extreme desert environment</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">$20,000 — Water risk in extreme desert; unique geography = compelling entry point</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="imran aslam sindh engro coal mining company general manager hse & sustainability " onclick="openPhoto('Imran Aslam', 'Sindh Engro Coal Mining Company')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Imran Aslam', 'Sindh Engro Coal Mining Company')">
+  <div class="avatar"><img src="" data-name="Imran Aslam" alt="Imran Aslam" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Imran Aslam</div>
+          <div class="contact-role">General Manager HSE & Sustainability</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Confirmed</span></div>
+          <div class="contact-notes">Call confirmada y whatsapp enviado — ya me contestó.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="Mining Association of Canada (MAC)">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">Mining Association of Canada (MAC)</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">National trade association for Canada's mining industry. Administers the Towards Sustainable Mining (TSM) initiative — the global standard for responsible mining. KEY RELATIONAL CONTACT.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">Trade Association</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">~50 member companies</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">N/A</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Relational / Partnership</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Gateway to Canadian mining companies</span><span class="sust-tag">TSM water protocol</span><span class="sust-tag">Intro to Agnico Eagle, Barrick, Teck, others</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">TSM Water Stewardship Protocol administrator</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">Relational — Charles can introduce Waterplan to member companies. TSM integration opportunity.</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="charles dumaresq mining association of canada vice president, science and environmental management " onclick="openPhoto('Charles Dumaresq', 'Mining Association of Canada')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Charles Dumaresq', 'Mining Association of Canada')">
+  <div class="avatar"><img src="" data-name="Charles Dumaresq" alt="Charles Dumaresq" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Charles Dumaresq</div>
+          <div class="contact-role">Vice President, Science and Environmental Management</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Confirmed</span></div>
+          <div class="contact-notes">Can introduce us to other mining companies/subsidiaries in Canada.</div>
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+<div class="company-section open" data-company="International Lithium Association (ILA)">
+  <div class="company-header" onclick="toggleSection(this)">
+    <span class="company-name">International Lithium Association (ILA)</span>
+    <span class="company-count">1 contact</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="company-body">
+    <div class="company-info">
+      <div class="info-grid">
+        <div class="info-item full"><div class="info-label">About</div><div class="about-text info-value">Global trade body for the lithium value chain. Represents producers, converters and users. Develops sustainability standards — including water use in South American brines.</div></div>
+        <div class="info-item"><div class="info-label">Revenue 2024</div><div class="info-value highlight">Trade Association</div></div>
+        <div class="info-item"><div class="info-label">Employees</div><div class="info-value">N/A</div></div>
+        <div class="info-item"><div class="info-label">Mining Sites</div><div class="info-value">N/A</div></div>
+        <div class="info-item"><div class="info-label">Licence Interest</div><div class="info-value">Relational</div></div>
+        <div class="info-item full"><div class="info-label">Sustainability &amp; Water Targets</div><div class="sust-tags"><span class="sust-tag">Gateway to lithium miners (SQM, Albemarle, Arcadium)</span><span class="sust-tag">Salar brine water issues — critical</span><span class="sust-tag">Sustainability standards development</span></div></div>
+        <div class="info-item full"><div class="info-label">Current Tools</div><div class="info-value">Sustainability standards development, water working groups</div></div>
+        <div class="info-item full"><div class="info-label">Pot. Pipeline</div><div class="info-value">Relational — Intro to lithium producers. Lithium brine water risk is an emerging opportunity.</div></div>
+      </div>
+    </div>
+    <div class="contacts-list"><div class="contact-card" data-search="tom drabble international lithium association global sustainability manager " onclick="openPhoto('Tom Drabble', 'International Lithium Association')">
+        <div class="avatar-wrap has-photo" onclick="openPhoto('Tom Drabble', 'International Lithium Association')">
+  <div class="avatar"><img src="" data-name="Tom Drabble" alt="Tom Drabble" loading="lazy" onerror="this.style.display='none'"></div>
+</div>
+        <div class="contact-info">
+          <div class="contact-name">Tom Drabble</div>
+          <div class="contact-role">Global Sustainability Manager</div>
+          <div class="contact-badges"><span class="badge badge-confirmed">✓ Target</span></div>
+          
+          <div class="tap-hint">👆 Tap to see photo</div>
+        </div>
+      </div></div>
+  </div>
+</div>
+</div>
+
+<div class="spacer"></div>
+
+<script>
+const PHOTOS = {
+  "Alex Ungers": "Attendees/Alex Ungers.jpeg",
+  "Alexandre Braga": "Attendees/Alexandre Braga.jpeg",
+  "Allison Brown": "Attendees/Allison Brown.jpg",
+  "Allison Merla": "Attendees/Allison Merla.jpeg",
+  "Ally Wade": "Attendees/Ally Wade.jpeg",
+  "Ana Rodrigues": "Attendees/Ana Rodrigues.png",
+  "Blair Douglas": "Attendees/Blair Douglas.png",
+  "Bobby Doroudiani": "Attendees/Bobby Doroudiani.jpeg",
+  "Camilo Martinez": "Attendees/Camilo Martinez.jpeg",
+  "Charles Dumaresq": "Attendees/Charles Dumaresq.png",
+  "Edwin Ruiz": "Attendees/Edwin Ruiz.jpeg",
+  "Elzanne Moodie": "Attendees/Elzanne Moodie.png",
+  "Emily O'Hara": "Attendees/Emily O'Hara.jpeg",
+  "Felix Abanto Trujillo": "Attendees/Felix Abanto Trujillo.png",
+  "Francis McAllister": "Attendees/Francis McAllister.png",
+  "Gustavo Correa": "Attendees/Gustavo Correa.jpeg",
+  "Henrique Guerzoni": "Attendees/Henrique Guerzoni.jpeg",
+  "Imran Aslam": "Attendees/Imran Aslam.png",
+  "Jae Min": "Attendees/Jae Min.jpeg",
+  "Jorge Zafra": "Attendees/Jorge Zafra.jpeg",
+  "Jose Wanderley": "Attendees/Jose Wanderley.jpeg",
+  "Kenzie Hackett": "Attendees/Kenzie Hackett.jpeg",
+  "Kerri Harmati": "Attendees/Kerri Harmati.jpeg",
+  "Kristin Pouw": "Attendees/Kristin Pouw.png",
+  "Lina Ramos": "Attendees/Lina Ramos.jpeg",
+  "Lisa Mah": "Attendees/Lisa Mah.jpeg",
+  "Maria Cristina Acosta": "Attendees/Maria Cristina Acosta.jpeg",
+  "Melanie Jenkins": "Attendees/Melanie Jenkins.png",
+  "Miguel Berganza": "Attendees/Miguel Berganza.jpg",
+  "Nathan Glas": "Attendees/Nathan Glas.jpeg",
+  "Nosimo Macatsha": "Attendees/Nosimo Macatsha.jpeg",
+  "Randal Evans": "Attendees/Randal Evans.png",
+  "Rory O'Connor": "Attendees/Rory O'Connor.jpeg",
+  "Sadeed Hassan": "Attendees/Sadeed Hassan.jpeg",
+  "Sandy Fabritz": "Attendees/Sandy Fabritz.jpeg",
+  "Sean Sinclair": "Attendees/Sean Sinclair.png",
+  "Shelley Willock": "Attendees/Shelley Willock.jpeg",
+  "Shirley Neault": "Attendees/Shirley Neault.png",
+  "Tom Drabble": "Attendees/Tom Drabble.jpeg",
+  "Trevor Ross": "Attendees/Trevor Ross.png",
+  "Varun Gupta": "Attendees/Varun Gupta.jpeg",
+  "Verónica Barbecho": "Attendees/Verónica Barbecho.jpg",
+  "Victoria Sterritt": "Attendees/Victoria Sterritt.jpeg",
+  "Willyan Debastiani": "Attendees/Willyan Debastiani.jpeg"
+};
+
+
+function openPhoto(name, company) {
+  const photo = PHOTOS[name];
+  if (!photo) return;
+  document.getElementById('lightbox-img').src = photo;
+  document.getElementById('lightbox-name').textContent = name;
+  document.getElementById('lightbox-company').textContent = company;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+  if (e && e.target !== document.getElementById('lightbox') && e.target !== document.getElementById('lightbox-close')) return;
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+function toggleSection(btn) {
+  const section = btn.closest('.company-section');
+  section.classList.toggle('open');
+}
+
+function filterCards() {
+  const query = document.getElementById('searchInput').value.toLowerCase().trim();
+  const sections = document.querySelectorAll('.company-section');
+  let totalVisible = 0;
+  sections.forEach(section => {
+    const companyName = (section.dataset.company || '').toLowerCase();
+    const cards = section.querySelectorAll('.contact-card');
+    let sectionHasMatch = false;
+    cards.forEach(card => {
+      const searchData = (card.dataset.search || '') + ' ' + companyName;
+      const nameEl = card.querySelector('.contact-name');
+      const roleEl = card.querySelector('.contact-role');
+      const text = searchData + ' ' + (nameEl ? nameEl.textContent : '') + ' ' + (roleEl ? roleEl.textContent : '');
+      const match = !query || text.toLowerCase().includes(query);
+      card.style.display = match ? '' : 'none';
+      if (match) { sectionHasMatch = true; totalVisible++; }
+    });
+    if (query) {
+      const companyMatch = companyName.includes(query);
+      if (companyMatch) { cards.forEach(c => { c.style.display = ''; totalVisible++; }); sectionHasMatch = true; }
+      section.classList.toggle('hidden', !sectionHasMatch);
+      if (sectionHasMatch) section.classList.add('open');
+    } else { section.classList.remove('hidden'); }
+  });
+  const countBar = document.getElementById('countBar');
+  countBar.textContent = query ? `Showing ${totalVisible} contact${totalVisible !== 1 ? 's' : ''} matching "${query}"` : 'Showing all 51 contacts';
+}
+</script>
+</body>
+</html>
