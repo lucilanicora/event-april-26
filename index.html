@@ -75,6 +75,47 @@
   .av-7 { background: #1e40af; }
   .company-section.hidden { display: none; }
 
+  /* PRIOS SECTION */
+  #priosSection { margin: 1.25rem 1rem 0; border-radius: 14px; overflow: hidden; background: white; border: 2px solid var(--gold); box-shadow: 0 2px 8px rgba(200,153,58,0.15); }
+  #priosSection .prios-header { padding: 1rem 1.25rem; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  #priosSection .prios-header:hover { filter: brightness(1.1); }
+  .prios-title-wrap { display: flex; align-items: center; gap: 10px; }
+  .prios-star { font-size: 20px; }
+  .prios-title { font-family: 'DM Serif Display', serif; font-size: 20px; color: white; }
+  .prios-subtitle { font-size: 11px; color: var(--gold); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+  .prios-count-badge { background: var(--gold); color: white; font-size: 11px; font-weight: 600; padding: 2px 10px; border-radius: 20px; white-space: nowrap; }
+  #priosSection .chevron { color: rgba(255,255,255,0.5); font-size: 18px; transition: transform 0.2s; flex-shrink: 0; }
+  #priosSection.open .chevron { transform: rotate(180deg); }
+  #priosSection .prios-body { display: none; }
+  #priosSection.open .prios-body { display: block; }
+  .prio-card { padding: 0.9rem 1.25rem; border-top: 1px solid var(--border); display: flex; align-items: flex-start; gap: 12px; transition: background 0.15s; }
+  .prio-card:hover { background: #fffdf5; }
+  .prio-card.contacted { background: #f0faf4 !important; border-left: 4px solid #2e7d32; }
+  .prio-card.contacted:hover { background: #e8f5e9 !important; }
+  .prio-card-left { flex: 1; display: flex; align-items: flex-start; gap: 12px; min-width: 0; }
+  .prio-avatar { position: relative; flex-shrink: 0; }
+  .prio-avatar .avatar { width: 48px; height: 48px; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+  .prio-avatar .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .prio-info { flex: 1; min-width: 0; }
+  .prio-name { font-weight: 600; font-size: 15px; color: var(--text); }
+  .prio-company { font-size: 12px; color: var(--teal); font-weight: 500; margin-top: 1px; }
+  .prio-role { font-size: 12px; color: var(--slate); margin-top: 1px; line-height: 1.4; }
+  .prio-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+  .prio-speaker-slot { font-size: 11px; color: var(--gold); background: var(--gold-light); border-radius: 8px; padding: 3px 8px; margin-top: 4px; display: inline-flex; align-items: center; gap: 4px; }
+  .prio-check-wrap { display: flex; align-items: center; flex-shrink: 0; padding-top: 2px; }
+  .prio-check-label { display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+  .prio-check-label input[type="checkbox"] { display: none; }
+  .prio-check-btn { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); background: white; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all 0.2s; flex-shrink: 0; }
+  .prio-check-label:hover .prio-check-btn { border-color: #2e7d32; background: #e8f5e9; }
+  .prio-check-label input:checked ~ .prio-check-btn { background: #2e7d32; border-color: #2e7d32; color: white; }
+  .prio-check-text { font-size: 10px; color: var(--slate); white-space: nowrap; }
+  .prio-check-label input:checked ~ .prio-check-btn + .prio-check-text,
+  .contacted-label { color: #2e7d32; font-weight: 600; }
+  .contacted-badge { background: #e8f5e9; color: #2e7d32; font-size: 10px; padding: 2px 7px; border-radius: 12px; font-weight: 600; margin-top: 3px; display: inline-block; }
+  /* Contacted cards go to bottom */
+  .prios-list { display: flex; flex-direction: column; }
+  @media (min-width: 600px) { #priosSection { margin: 1.5rem 1.5rem 0; } }
+
   /* LIGHTBOX */
   #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 9999; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
   #lightbox.active { display: flex; }
@@ -111,6 +152,370 @@
 </div>
 
 <div class="count-bar" id="countBar">Showing all 51 contacts</div>
+
+<!-- PRIOS SECTION -->
+<div id="priosSection" class="open">
+  <div class="prios-header" onclick="togglePrios()">
+    <div class="prios-title-wrap">
+      <span class="prios-star">⭐</span>
+      <div>
+        <div class="prios-title">Prios</div>
+        <div class="prios-subtitle">Mega Ultra Priority Contacts</div>
+      </div>
+    </div>
+    <span class="prios-count-badge">16 contacts</span>
+    <span class="chevron">▾</span>
+  </div>
+  <div class="prios-body">
+    <div class="prios-list" id="priosList">
+
+      <div class="prio-card" data-prio="Blair Douglas">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Blair Douglas','BHP')">
+            <div class="avatar av-0"><img src="Attendees/Blair Douglas.png" alt="Blair Douglas" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Blair Douglas</div>
+            <div class="prio-company">BHP</div>
+            <div class="prio-role">Global Practice Lead for Water Management and Mine Closure</div>
+            <div class="prio-badges"><span class="badge badge-confirmed">✓ Confirmed</span><span class="badge badge-speaker">🎤 Speaker</span></div>
+            <div class="prio-speaker-slot">🕓 Wednesday, 4:00 PM – 4:30 PM</div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Ana Rodrigues">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Ana Rodrigues','Boliden')">
+            <div class="avatar av-1"><img src="Attendees/Ana Rodrigues.png" alt="Ana Rodrigues" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Ana Rodrigues</div>
+            <div class="prio-company">Boliden</div>
+            <div class="prio-role">Boliden Mines Water Stewardship Coordinator</div>
+            <div class="prio-badges"><span class="badge badge-confirmed">✓ Confirmed</span><span class="badge badge-speaker">🎤 Speaker</span></div>
+            <div class="prio-speaker-slot">🕓 Wednesday, 2:10 PM – 2:30 PM</div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Tom Drabble">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Tom Drabble','International Lithium Association')">
+            <div class="avatar av-2"><img src="Attendees/Tom Drabble.jpeg" alt="Tom Drabble" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Tom Drabble</div>
+            <div class="prio-company">International Lithium Association</div>
+            <div class="prio-role">Global Sustainability Manager</div>
+            <div class="prio-badges"><span class="badge badge-confirmed">✓ Confirmed</span></div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Francis McAllister">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Francis McAllister','Freeport McMoRan')">
+            <div class="avatar av-3"><img src="Attendees/Francis McAllister.png" alt="Francis McAllister" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Francis McAllister</div>
+            <div class="prio-company">Freeport McMoRan</div>
+            <div class="prio-role">Vice President of Land and Water</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ Haven't asked yet</span><span class="badge badge-speaker">🎤 Speaker</span></div>
+            <div class="prio-speaker-slot">🕓 Tuesday, 4:30 PM – 5:15 PM</div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Nosimo Macatsha">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Nosimo Macatsha','Gold Fields')">
+            <div class="avatar av-4"><img src="Attendees/Nosimo Macatsha.jpeg" alt="Nosimo Macatsha" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Nosimo Macatsha</div>
+            <div class="prio-company">Gold Fields</div>
+            <div class="prio-role">Senior Manager Environment and Water Stewardship</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span></div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Kristin Pouw">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Kristin Pouw','Newmont')">
+            <div class="avatar av-5"><img src="Attendees/Kristin Pouw.png" alt="Kristin Pouw" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Kristin Pouw</div>
+            <div class="prio-company">Newmont</div>
+            <div class="prio-role">Principal, Water &amp; Waste</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span><span class="badge badge-speaker">🎤 Speaker</span></div>
+            <div class="prio-speaker-slot">🕓 Tuesday 1:45–2:15 PM · Wed 10:00–10:45 AM · Wed 1:30–1:45 PM</div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Willyan Debastiani">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Willyan Debastiani','Vale')">
+            <div class="avatar av-6"><img src="Attendees/Willyan Debastiani.jpeg" alt="Willyan Debastiani" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Willyan Debastiani</div>
+            <div class="prio-company">Vale</div>
+            <div class="prio-role">Water Resources Manager</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span></div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Bobby Doroudiani">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Bobby Doroudiani','Agnico Eagle')">
+            <div class="avatar av-7"><img src="Attendees/Bobby Doroudiani.jpeg" alt="Bobby Doroudiani" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Bobby Doroudiani</div>
+            <div class="prio-company">Agnico Eagle</div>
+            <div class="prio-role">Permitting Lead – Water &amp; Waste</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span><span class="badge badge-speaker">🎤 Speaker</span></div>
+            <div class="prio-speaker-slot">🕓 Wednesday, 10:00 AM – 10:45 AM</div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Henrique Guerzoni">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Henrique Guerzoni','Vale Base Metals')">
+            <div class="avatar av-0"><img src="Attendees/Henrique Guerzoni.jpeg" alt="Henrique Guerzoni" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Henrique Guerzoni</div>
+            <div class="prio-company">Vale Base Metals</div>
+            <div class="prio-role">Principal Hydrogeologist</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span></div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Kenzie Hackett">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Kenzie Hackett','Agnico Eagle')">
+            <div class="avatar av-1"><img src="Attendees/Kenzie Hackett.jpeg" alt="Kenzie Hackett" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Kenzie Hackett</div>
+            <div class="prio-company">Agnico Eagle</div>
+            <div class="prio-role">Environmental Superintendent</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span></div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Allison Merla">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Allison Merla','Vale Base Metals')">
+            <div class="avatar av-2"><img src="Attendees/Allison Merla.jpeg" alt="Allison Merla" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Allison Merla</div>
+            <div class="prio-company">Vale Base Metals</div>
+            <div class="prio-role">Specialist, Environment</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span></div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Elzanne Moodie">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Elzanne Moodie','Glencore')">
+            <div class="avatar av-3"><img src="Attendees/Elzanne Moodie.png" alt="Elzanne Moodie" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Elzanne Moodie</div>
+            <div class="prio-company">Glencore</div>
+            <div class="prio-role">Head of Environment and Climate</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span><span class="badge badge-speaker">🎤 Speaker</span></div>
+            <div class="prio-speaker-slot">🕓 Tuesday, 2:40 PM – 3:20 PM</div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Emily O'Hara">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Emily O\'Hara','Coeur')">
+            <div class="avatar av-4"><img src="Attendees/Emily O'Hara.jpeg" alt="Emily O'Hara" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Emily O'Hara</div>
+            <div class="prio-company">Coeur</div>
+            <div class="prio-role">Water Strategy and Environmental Stewardship Manager</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span><span class="badge badge-speaker">🎤 Speaker</span></div>
+            <div class="prio-speaker-slot">🕓 Tuesday, 2:40 PM – 3:20 PM</div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Lina Ramos">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Lina Ramos','Hudbay Minerals')">
+            <div class="avatar av-5"><img src="Attendees/Lina Ramos.jpeg" alt="Lina Ramos" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Lina Ramos</div>
+            <div class="prio-company">Hudbay Minerals</div>
+            <div class="prio-role">General Supervisor Water Systems</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span></div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Sadeed Hassan">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Sadeed Hassan','Hudbay Minerals')">
+            <div class="avatar av-6"><img src="Attendees/Sadeed Hassan.jpeg" alt="Sadeed Hassan" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Sadeed Hassan</div>
+            <div class="prio-company">Hudbay Minerals</div>
+            <div class="prio-role">Acting Director, Sustainable Development</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span></div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="prio-card" data-prio="Jorge Zafra">
+        <div class="prio-card-left">
+          <div class="prio-avatar has-photo" onclick="openPhoto('Jorge Zafra','MMG')">
+            <div class="avatar av-7"><img src="Attendees/Jorge Zafra.jpeg" alt="Jorge Zafra" loading="lazy" onerror="this.style.display='none'"></div>
+          </div>
+          <div class="prio-info">
+            <div class="prio-name">Jorge Zafra</div>
+            <div class="prio-company">MMG</div>
+            <div class="prio-role">Principal Hydrologist</div>
+            <div class="prio-badges"><span class="badge badge-maybe">⏳ In progress</span><span class="badge badge-speaker">🎤 Speaker</span></div>
+            <div class="prio-speaker-slot">🕓 Tuesday, 11:15 AM – 11:30 AM</div>
+          </div>
+        </div>
+        <div class="prio-check-wrap">
+          <label class="prio-check-label" onclick="toggleContacted(event, this)">
+            <input type="checkbox">
+            <div class="prio-check-btn">✓</div>
+            <span class="prio-check-text">Ya hablamos</span>
+          </label>
+        </div>
+      </div>
+
+    </div><!-- end prios-list -->
+  </div><!-- end prios-body -->
+</div><!-- end priosSection -->
 
 <div id="companiesContainer">
 <div class="company-section open" data-company="BHP">
@@ -1191,6 +1596,37 @@ const PHOTOS = {
   "Victoria Sterritt": "Attendees/Victoria Sterritt.jpeg",
   "Willyan Debastiani": "Attendees/Willyan Debastiani.jpeg"
 };
+
+
+function togglePrios() {
+  document.getElementById('priosSection').classList.toggle('open');
+}
+
+function toggleContacted(e, label) {
+  e.stopPropagation();
+  const checkbox = label.querySelector('input[type="checkbox"]');
+  // Toggle will fire after this — read future state
+  const willBeChecked = !checkbox.checked;
+  const card = label.closest('.prio-card');
+  const list = document.getElementById('priosList');
+  // Use setTimeout to let the checkbox state update first
+  setTimeout(() => {
+    if (checkbox.checked) {
+      card.classList.add('contacted');
+      list.appendChild(card); // move to bottom
+    } else {
+      card.classList.remove('contacted');
+      // Move back to top (before first non-contacted card)
+      const firstContacted = list.querySelector('.prio-card.contacted');
+      if (firstContacted) {
+        list.insertBefore(card, firstContacted);
+      } else {
+        list.insertBefore(card, list.firstChild);
+      }
+    }
+  }, 10);
+}
+
 
 
 function openPhoto(name, company) {
